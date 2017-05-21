@@ -13,7 +13,7 @@ public static class ResourcesManager {
         set
         {
             _Wood = value;
-            RessourceGUI.SetWoodAmount(value);
+            ResourceGUI.SetWoodAmount(value);
         }
     }
 
@@ -23,7 +23,7 @@ public static class ResourcesManager {
         set
         {
             _Gold = value;
-            RessourceGUI.SetGoldAmount(value);
+            ResourceGUI.SetGoldAmount(value);
         }
     }
 

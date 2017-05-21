@@ -41,7 +41,6 @@ public class UnitSelection : MonoBehaviour
             foreach(MovableCharacter character in CharactersManager.Characters)
             {
                 bool isWithinSelectionBounds = IsWithinSelectionBounds(character);
-                Debug.Log(isWithinSelectionBounds);
                 if(isWithinSelectionBounds)
                 {
                     // select character and draw rectangle on it

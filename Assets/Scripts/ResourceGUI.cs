@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public static class RessourceGUI {
+public static class ResourceGUI {
 	
 	public static void SetWoodAmount (int wood) {
         var woodAmountText = GameObject.Find("WoodAmountText").GetComponent<Text>();

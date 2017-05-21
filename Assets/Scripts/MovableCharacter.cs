@@ -25,7 +25,8 @@ public class MovableCharacter : MonoBehaviour {
 
     // Update is called once per frame
     protected void Update () {
-        if(!_Idle)
+        DiscoverMap();
+        if (!_Idle)
             MoveToPosition(_Destination);
     }
 
@@ -59,10 +60,16 @@ public class MovableCharacter : MonoBehaviour {
         if (_IsSelected)
         {
             // Selection box
-            Debug.Log("IsSelected");
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
             Rect rect = Utils.GetScreenRect(new Vector3(pos.x - 30.0f, pos.y - 30.0f, pos.z), new Vector3(pos.x + 30.0f, pos.y + 30.0f, pos.z));
             Utils.DrawScreenRectBorder(rect, 2, Color.green);
         }
+    }
+
+    private void DiscoverMap()
+    {
+        int posX = (int)transform.position.x;
+        int posY = (int)transform.position.y;
+        FogOfWar.DiscoverTiles(posX, posY);
     }
 }
