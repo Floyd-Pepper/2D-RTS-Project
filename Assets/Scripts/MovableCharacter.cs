@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MovableCharacter : MonoBehaviour {
 
+    //states
     bool _Idle = true;
     private bool _IsSelected = false;
     public bool IsSelected
@@ -12,30 +13,44 @@ public class MovableCharacter : MonoBehaviour {
         set { _IsSelected = value; }
     }
 
-    int _Speed = 5;
+    public enum Action { ATTACK, CHOP, NONE };
+    protected Action _Action = Action.NONE;
+
+    public enum Type { PEASENT, WARRIOR };
+    public Type _Type;
+
+    //characteristics
+    protected int _Speed = 5;
+    protected int _Life = 100;
 
     SpriteRenderer _SpriteRenderer;
 
     Vector2 _Destination;
 
-	// Use this for initialization
 	protected void Start () {
         _SpriteRenderer = GetComponent<SpriteRenderer>();
-	}
+    }
 
-    // Update is called once per frame
     protected void Update () {
         DiscoverMap();
         if (!_Idle)
             MoveToPosition(_Destination);
     }
 
+    public void SetCurrentAction(Action action)
+    {
+        _Action = action;
+    }
+
     public void MoveToPosition(Vector2 destination)
     {
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), destination) <= 1.0f)
+        {
+            _Idle = true;
+            return;
+        }    
         float step = _Speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, destination, step);
-        if (new Vector2(transform.position.x, transform.position.y) == destination)
-            _Idle = true;
     }
 
     public void SetDestinationPosition(Vector2 destination)
@@ -45,6 +60,11 @@ public class MovableCharacter : MonoBehaviour {
         float directionSign = destination.x - transform.position.x;
         if ((directionSign > 0 && _SpriteRenderer.flipX) || (directionSign < 0 && !_SpriteRenderer.flipX))
             FlipSprite();
+    }
+
+    protected virtual void ProcessClickOnBackground()
+    {
+
     }
 
     public void FlipSprite()

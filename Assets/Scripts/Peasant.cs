@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Peasant : MovableCharacter {
 
-    public enum Action { CHOP, NONE };
-    private Action _Action;
-
     private GameObject _BaseBuilding;
 
     // CHOP
@@ -16,6 +13,7 @@ public class Peasant : MovableCharacter {
 	// Use this for initialization
 	new void Start () {
         base.Start();
+        _Type = Type.PEASENT;
         CharactersManager.Characters.Add(this);
         _BaseBuilding = GameObject.FindGameObjectWithTag("BaseBuilding");
     }
@@ -29,11 +27,6 @@ public class Peasant : MovableCharacter {
         }
 	}
 
-    public void SetCurrentAction(Action action)
-    {
-        _Action = action;
-    }
-
     public void StartChop(Tree tree)
     {
         _Action = Action.CHOP;
@@ -45,7 +38,7 @@ public class Peasant : MovableCharacter {
     {
         if (_TreeToChop)
         {
-            if (transform.position == _TreeToChop.transform.position)
+            if (Vector2.Distance(transform.position, _TreeToChop.transform.position) <= 1.0f)
             {
                 _TimeChoping += Time.deltaTime;
                 if(_TimeChoping >= 5.0f)
@@ -54,7 +47,7 @@ public class Peasant : MovableCharacter {
                     PutRessourcesToBase();
                 }
             }
-            else if(transform.position == _BaseBuilding.transform.position)
+            else if(Vector2.Distance(transform.position, _BaseBuilding.transform.position) <= 1.0f)
             {
                 ResourcesManager.Wood += 10;
                 SetDestinationPosition(_TreeToChop.transform.position);

@@ -24,11 +24,11 @@ public static class CharactersManager {
         // déplacer les personnages à la position de la souris
         if(mouseClick == 1)
         {
-            foreach (Peasant character in _SelectedCharacters)
+            foreach (MovableCharacter character in _SelectedCharacters)
             {
                 Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 character.SetDestinationPosition(target);
-                character.SetCurrentAction(Peasant.Action.NONE);
+                character.SetCurrentAction(MovableCharacter.Action.NONE);
             }
         }
         // désélectionner tous les personnages

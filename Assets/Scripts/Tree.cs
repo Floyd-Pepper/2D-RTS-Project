@@ -18,9 +18,14 @@ public class Tree : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(1))
         {
-            foreach (Peasant character in CharactersManager.SelectedCharacters)
+            foreach (MovableCharacter character in CharactersManager.SelectedCharacters)
             {
-                character.StartChop(this);
+                character.SetDestinationPosition(transform.position);
+                if(character._Type == MovableCharacter.Type.PEASENT)
+                {
+                    Peasant peasant = (Peasant)character;
+                    peasant.StartChop(this);
+                }
             }
         }
     }
